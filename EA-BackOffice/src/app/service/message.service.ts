@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Message } from '../models/message';
 import { Activity } from '../models/activity';
+import { FAQS } from '../models/FAQS';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,10 @@ export class MessageService {
     return this.http.get<Message[]>(this.url + '/messages/activity/' + id);
   }
 
+  getMessagesByQuestion(id:string): Observable<Message[]> {
+    return this.http.get<Message[]>(this.url + 'messages/faqs/' +id);
+  }
+
   deleteMessage(id: string): Observable<string> {
     return this.http.delete(this.url + '/messages/' + id, {responseType: 'text'})
   }
@@ -35,4 +40,9 @@ export class MessageService {
   addMessageActivityByName(message: Message): Observable<string> {
     return this.http.post(this.url + '/messages/activityName', message, {responseType: 'text'});
   }
+
+  addMessageFAQSByQuestion(message: Message): Observable<string>{
+    return this.http.post(this.url + '/messages/question', message, {responseType: 'text'})
+  }
+  
 }

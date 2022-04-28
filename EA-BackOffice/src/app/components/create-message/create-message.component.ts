@@ -29,7 +29,8 @@ export class CreateMessageComponent implements OnInit {
         message: ['', Validators.required],
         sender: ['', Validators.required],
         receiver: [],
-        activity: []
+        activity: [],
+        faqs:[]
       });
 
       //this.message = this.aRouter.snapshot.paramMap.get('message');
@@ -46,8 +47,8 @@ export class CreateMessageComponent implements OnInit {
       message: this.messageForm.get('message')?.value,
       sender: this.messageForm.get('sender')?.value,
       receiver: this.messageForm.get('receiver')?.value,
-      activity: this.messageForm.get('activity')?.value
-
+      activity: this.messageForm.get('activity')?.value,
+      faqs: this.messageForm.get('faqs')?.value
     }
 
     // Add message
@@ -69,9 +70,15 @@ export class CreateMessageComponent implements OnInit {
         console.log(error);
         this.messageForm.reset();
       })
-    } else console.log("Error: no receiver nor activity")
-
-    
+    } else if (message.faqs !=null) {
+      this._messageService.addMessageFAQSByQuestion(message).subscribe(data => {
+        this.toastr.success('Message successfully created!', 'Message created --> FAQS');
+        this.router.navigate(['list-messages']);
+      },error => {
+        console.log(error);
+        this.messageForm.reset();
+      })
+    }else console.log("Error: no receiver nor activity nor FAQS")
   }
 }
 

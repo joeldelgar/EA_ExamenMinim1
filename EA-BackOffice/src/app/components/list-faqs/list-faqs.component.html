@@ -1,0 +1,36 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="card">
+                <div class="card-body text-center">
+                    <span class="title">FAQS</span>
+                    <button class="btn btn-success float-end" routerLink="/create-rating">NEW FAQS</button>
+                    <table *ngIf="listFaqs.length > 0" class="table table-striped mt-3">
+                     <thead>
+                       <tr>
+                         <th scope="col">Question</th>
+                         <th scope="col">Response</th>
+                         <th scope="col">Date</th>
+                         <th scope="col"></th>
+                       </tr>
+                     </thead>
+                     <tbody>
+                       <tr *ngFor="let FAQS of listFaqs">
+                         <td>{{ FAQS.question }}</td>
+                         <td>{{ FAQS.response }}</td>
+                         <td>{{ FAQS.date }}</td>
+                         <td>
+                             <i [routerLink]="['/edit-faqs', FAQS.question]" class="fa-solid fa-pen-to-square text-primary"></i>
+                             <i (click)="deleteFAQS(FAQS.question)" class="fa-solid fa-trash text-danger"></i>
+                             <i [routerLink]="['/message-list-faqs', FAQS._id]" class="fa-solid fa-message text-primary"></i>
+                         </td>
+                       </tr>
+                     </tbody>
+                   </table>
+                   <h5 style="text-align: start; margin-top: 10px;" *ngIf="listFaqs.length == 0">There are no FAQS in the database</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+
