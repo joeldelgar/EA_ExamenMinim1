@@ -5,7 +5,8 @@ const MessageSchema = new Schema({
     sendingDate: {type: Date, default:Date.now},
     sender: {type: Schema.Types.ObjectId, ref:'User',  required: true},
     receiver: {type: Schema.Types.ObjectId, ref:'User'},
-    activity: {type: Schema.Types.ObjectId, ref:'Activity'},   
+    activity: {type: Schema.Types.ObjectId, ref:'Activity'},
+    FAQS: {type: Schema.Types.ObjectId, ref: 'FAQS'},   
 })
 
 export default model('Message', MessageSchema);

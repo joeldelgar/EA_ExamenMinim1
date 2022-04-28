@@ -3,6 +3,7 @@ import {Request, Response, Router} from 'express';
 import Message from '../models/Message';
 import User from '../models/User';
 import Activity from '../models/Activities';
+import FAQS from '../models/FAQS';
 
 class MessageRoutes {
     public router: Router;
@@ -47,6 +48,18 @@ class MessageRoutes {
     public async getMessagesByActivity(req: Request, res: Response) : Promise<void> {
         
         const messageFound = await Message.find({activity: req.params.Id}).populate('sender', 'username').populate('activity','name');
+        
+        if(messageFound == null){
+            res.status(404).send("The message doesn't exist!");
+        }
+        else{
+            res.status(200).send(messageFound);
+        }
+    }
+
+    public async getMessagesByQuestion(req: Request, res: Response) : Promise<void> {
+        
+        const messageFound = await Message.find({FAQS: req.params.Id}).populate('sender', 'username').populate('activity','name');
         
         if(messageFound == null){
             res.status(404).send("The message doesn't exist!");
